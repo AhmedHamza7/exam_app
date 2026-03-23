@@ -1,0 +1,90 @@
+.auth-info-container {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('/images/auth/auth-overlay.svg');
+    background-position: center;
+    background-size: cover;
+    filter: blur(120px);
+    transform: scale(1.15);
+    z-index: -1;
+  }
+}
+
+.auth-info-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 640px;
+}
+
+.brand-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+
+  h2 {
+    margin: 0;
+    color: var(--primary-color);
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+}
+
+.brand-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.main-title {
+  margin: 5rem 0 3rem;
+  color: var(--primary-color-text);
+  font-size: 2rem;
+  line-height: 1.35;
+  font-weight: 700;
+}
+
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+}
+
+.feature-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: 0.1rem;
+  flex-shrink: 0;
+}
+
+.feature-content {
+  h3 {
+    margin: 0 0 0.35rem;
+    color: var(--primary-color);
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  p {
+    margin: 0;
+    color: var(--secondary-color-text, #cbd5e1);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+}

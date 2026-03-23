@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+@use 'tailwindcss';
+
+:root {
+    --primary-color: #007bff; 
+    --primary-color-text: #1F2937;
+    --secondary-color-text: #374151;
+}
+
+body {
+    background-color: #fff;
+}
+
+.p-button {
+    color: #fff !important;
+    border-radius: 0 !important;
+}
+
