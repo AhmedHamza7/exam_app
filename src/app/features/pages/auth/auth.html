@@ -1,4 +1,8 @@
-<div class="auth-container flex items-center">
-  <app-auth-info class="w-1/2"></app-auth-info>
-  <app-login class="w-1/2"></app-login>
+<div class="auth-container">
+  <div class="auth-info-pane">
+    <app-auth-info></app-auth-info>
+  </div>
+  <div class="auth-form-pane">
+    <router-outlet></router-outlet>
+  </div>
 </div>

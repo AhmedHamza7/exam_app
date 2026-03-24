@@ -37,9 +37,6 @@ const themePreset = definePreset(Aura, {
               focusColor: '#ffffff'
           }
       },
-          dark: {
-              //...
-          }
       }
   }
 });

@@ -1,0 +1,29 @@
+.auth-container {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.auth-info-pane {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+// .auth-form-pane {
+//   min-height: 100vh;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   padding: 2rem;
+// }
+
+@media (max-width: 1024px) {
+  .auth-container {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-info-pane {
+    display: none;
+  }
+}

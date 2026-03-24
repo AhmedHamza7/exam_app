@@ -1,1 +1,35 @@
-<p>login works!</p>
+<section class="login-page">
+    <div class="login-card">
+        <h2 class="login-title">Login</h2>
+
+        <form class="login-form">
+          <div class="field-group">
+            <label for="username">Username</label>
+            <input id="username" type="text" pInputText />
+          </div>
+      
+          <div class="field-group">
+            <label for="password">Password</label>
+            <p-password
+              inputId="password"
+              [toggleMask]="true"
+              [feedback]="false"
+              styleClass="w-full"
+              inputStyleClass="w-full"
+            />
+          </div>
+      
+          <div class="forgot-password-row">
+            <a routerLink="/forget-password">Forget Your password?</a>
+          </div>
+      
+          <p-button label="Login" styleClass="w-full" />
+
+        </form>
+      
+        <p class="create-account-text">
+          Don&rsquo;t have an account?
+          <a routerLink="/create-account">Create yours</a>
+        </p>
+    </div>
+</section>
