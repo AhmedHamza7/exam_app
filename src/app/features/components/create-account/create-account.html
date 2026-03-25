@@ -1,1 +1,34 @@
-<p>create-account works!</p>
+<div class="create-account">
+    <div class="card flex justify-center">
+        <p-stepper [value]="1" class="basis-[50rem]">
+            <p-step-list>
+                <p-step [value]="1"></p-step>
+                <p-step [value]="2"></p-step>
+                <p-step [value]="3"></p-step>
+                <p-step [value]="4"></p-step>
+            </p-step-list>
+            <p-step-panels>
+                <p-step-panel [value]="1">
+                    <ng-template #content let-activateCallback="activateCallback">
+                        <app-email-step></app-email-step>
+                    </ng-template>
+                </p-step-panel>
+                <p-step-panel [value]="2">
+                    <ng-template #content let-activateCallback="activateCallback">
+                        <app-otp-step></app-otp-step>
+                    </ng-template>
+                </p-step-panel>
+                <p-step-panel [value]="3">
+                    <ng-template #content let-activateCallback="activateCallback">
+                        <app-user-info-step></app-user-info-step>
+                    </ng-template>
+                </p-step-panel>
+                <p-step-panel [value]="4">
+                    <ng-template #content let-activateCallback="activateCallback">
+                        <app-password-step></app-password-step>
+                    </ng-template>
+                </p-step-panel>
+            </p-step-panels>
+        </p-stepper>
+    </div>
+</div>
