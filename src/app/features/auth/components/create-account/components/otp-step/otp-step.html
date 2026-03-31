@@ -1,0 +1,23 @@
+<div class="otp-step">
+  <h3 class="otp-subtitle">Verify OTP</h3>
+
+  <p class="otp-desc">
+    Please enter the 6-digits code we have sent to:
+    <span class="otp-email-row">
+      <span class="otp-email">{{ email() }}</span>
+      <button type="button" class="otp-edit" (click)="onEdit()">Edit</button>
+    </span>
+  </p>
+
+  <div class="otp-input-wrap">
+    <p-inputotp [(ngModel)]="value" [length]="6" />
+  </div>
+
+  <p class="otp-resend">
+    You can request another code in: {{ countdownSeconds }}s
+  </p>
+
+  <div class="otp-actions">
+    <p-button variant="outlined" label="Verify code" styleClass="w-full" (onClick)="onVerify()" />
+  </div>
+</div>

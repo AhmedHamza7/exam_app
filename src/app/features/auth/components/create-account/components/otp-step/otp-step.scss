@@ -1,0 +1,71 @@
+.otp-step {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.otp-subtitle {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.otp-desc {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--medium-color-text);
+}
+
+.otp-email-row {
+  display: block;
+  margin-top: 0.35rem;
+}
+
+.otp-email {
+  font-weight: 600;
+  color: var(--medium-color-text);
+  word-break: break-all;
+}
+
+.otp-edit {
+  margin-left: 0.5rem;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+  color: var(--medium-color-text);
+  text-decoration: underline;
+}
+
+.otp-edit:hover {
+  color: var(--primary-color);
+}
+
+.otp-input-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.25rem;
+}
+
+:host ::ng-deep .otp-input-wrap .p-inputotp {
+  gap: 0.5rem;
+}
+
+.otp-resend {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--secondary-color-text);
+  text-align: center;
+}
+
+.otp-actions {
+  margin-top: 0.5rem;
+}
+
+:host ::ng-deep .otp-actions .p-button {
+  width: 100%;
+}

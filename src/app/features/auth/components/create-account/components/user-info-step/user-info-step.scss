@@ -1,0 +1,48 @@
+.user-info-step {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.field-group label {
+  color: var(--primary-color-text);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.req {
+  color: #ef4444;
+}
+
+:host ::ng-deep .field-group .p-inputtext {
+  width: 100%;
+}
+
+.next-row {
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 480px) {
+  .row-2 {
+    grid-template-columns: 1fr;
+  }
+}

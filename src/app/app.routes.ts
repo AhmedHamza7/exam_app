@@ -4,7 +4,7 @@ export const routes: Routes = [
   {
     path: '',
     loadComponent: () =>
-      import('./features/pages/auth/auth').then((m) => m.Auth),
+      import('./features/auth/pages/auth/auth').then((m) => m.Auth),
     children: [
       {
         path: '',
@@ -14,19 +14,19 @@ export const routes: Routes = [
       {
         path: 'login',
         loadComponent: () =>
-          import('./features/components/login/login').then((m) => m.Login),
+          import('./features/auth/components/login/login').then((m) => m.Login),
       },
       {
         path: 'create-account',
         loadComponent: () =>
-          import('./features/components/create-account/create-account').then(
+          import('./features/auth/components/create-account/create-account').then(
             (m) => m.CreateAccount,
           ),
       },
       {
         path: 'forget-password',
         loadComponent: () =>
-          import('./features/components/forget-password/forget-password').then(
+          import('./features/auth/components/forget-password/forget-password').then(
             (m) => m.ForgetPassword,
           ),
       },

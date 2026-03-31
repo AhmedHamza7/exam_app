@@ -1,0 +1,74 @@
+.create-account {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    .card {
+        width: 100%;
+        max-width: 460px;
+        padding: 2rem;
+        border-radius: 1rem;
+        .forms-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+    }
+}
+
+
+::ng-deep {
+    .p-steplist {
+        overflow: hidden !important;
+    }
+    .p-step-number {
+        background: var(--primary-color) !important;
+        border: none !important;
+        width: 8px !important;
+        height: 8px !important;
+        border-radius: 0 !important;
+        min-width: 8px !important;
+        transform: rotate(45deg) !important;
+        color: transparent !important;
+        &::after {
+            box-shadow: none !important;
+        }
+    }
+    .p-step-active {
+        .p-step-number {
+            background: var(--primary-color) !important;
+            border: none !important;
+            color: transparent !important;
+            &::after {
+                border-radius: 0 !important;
+                width: 16px !important;
+                height: 16px !important;
+                box-shadow: none !important;
+                background: #007bff3d !important;
+            }
+        }
+        .p-stepper-separator {
+            background-color: transparent !important;
+            border-bottom: 1px dashed var(--primary-color) !important; 
+            height: 0 !important;
+        }
+    }
+    .p-steppanel {
+        color: var(--primary-color-text) !important;
+    }
+    .p-step-active ~ .p-step {
+        .p-step-number {
+            border: 1px solid var(--primary-color) !important;
+            background: #007bff3d !important;
+        }  
+        .p-stepper-separator {
+            background-color: transparent !important;
+            border-bottom: 1px dashed var(--primary-color) !important; 
+            height: 0 !important;
+        }
+    }
+    .p-stepper-separator {
+        background: var(--primary-color) !important;
+    }
+}

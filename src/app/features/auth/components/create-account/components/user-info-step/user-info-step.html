@@ -1,0 +1,64 @@
+<div class="user-info-step">
+  <h3 class="subtitle">Tell us more about you</h3>
+
+  <div class="row-2">
+    <div class="field-group">
+      <label for="firstName">First Name <span class="req">*</span></label>
+      <input
+        id="firstName"
+        type="text"
+        pInputText
+        placeholder="First name"
+        [(ngModel)]="firstName"
+        name="firstName"
+      />
+    </div>
+
+    <div class="field-group">
+      <label for="lastName">Last Name <span class="req">*</span></label>
+      <input
+        id="lastName"
+        type="text"
+        pInputText
+        placeholder="Last name"
+        [(ngModel)]="lastName"
+        name="lastName"
+      />
+    </div>
+  </div>
+
+  <div class="field-group">
+    <label for="username">Username <span class="req">*</span></label>
+    <input
+      id="username"
+      type="text"
+      pInputText
+      placeholder="Username"
+      [(ngModel)]="username"
+      name="username"
+    />
+  </div>
+
+  <div class="field-group">
+    <label for="phone">Phone <span class="req">*</span></label>
+    <input
+      id="phone"
+      type="tel"
+      pInputText
+      placeholder="+1 555 000 0000"
+      [(ngModel)]="phone"
+      name="phone"
+    />
+  </div>
+
+  <div class="next-row">
+    <p-button
+      variant="outlined"
+      label="Next"
+      icon="pi pi-angle-right"
+      iconPos="right"
+      styleClass="w-full"
+      (onClick)="onNext()"
+    />
+  </div>
+</div>

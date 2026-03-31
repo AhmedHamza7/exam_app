@@ -1,0 +1,29 @@
+<div class="email-step">
+  <div class="field-group">
+    <label for="email">Email</label>
+    <input
+      id="email"
+      type="text"
+      pInputText
+      placeholder="user@example.com"
+      [(ngModel)]="email"
+      name="email"
+    />
+  </div>
+
+  <div class="next-row">
+    <p-button
+      variant="outlined"
+      label="Next"
+      icon="pi pi-angle-right"
+      iconPos="right"
+      styleClass="w-full"
+      (onClick)="onNext()"
+    />
+  </div>
+
+  <div class="login-row">
+    <span>Already have an account? </span>
+    <a routerLink="/login">Login</a>
+  </div>
+</div>
