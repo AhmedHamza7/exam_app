@@ -1,0 +1,33 @@
+<div class="user-email">
+  <h2 class="title">Forgot Password</h2>
+  <p class="desc">Don&rsquo;t worry, we will help you recover your account.</p>
+
+  <div class="field-group">
+    <label for="email">
+      Email <span class="req">*</span>
+    </label>
+    <input
+      id="email"
+      type="email"
+      pInputText
+      [(ngModel)]="email"
+      name="email"
+      placeholder="user@example.com"
+    />
+  </div>
+
+  <div class="next-row">
+    <p-button
+      variant="outlined"
+      label="Next"
+      icon="pi pi-angle-right"
+      iconPos="right"
+      styleClass="w-full"
+      (onClick)="onNext()"
+    />
+  </div>
+
+  <p class="create-account-text">
+    Don&rsquo;t have an account? <a routerLink="/create-account">Create yours</a>
+  </p>
+</div>

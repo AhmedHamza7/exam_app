@@ -1,0 +1,23 @@
+<div class="reset-link">
+  <div class="top-row">
+    <p-button
+      styleClass="back-button"
+      icon="pi pi-angle-left"
+      variant="outlined"
+      (onClick)="onBack()"
+    />
+  </div>
+
+  <h2 class="title">Password Reset Sent</h2>
+
+  <p class="desc primary">
+    We have sent a password reset link to:
+    <span class="email">{{ email }}</span>.
+  </p>
+  <p class="desc primary">Please check your inbox and follow the instructions to reset your password.</p>
+  <p class="desc">If you don&rsquo;t see the email within a few minutes, check your spam or junk folder.</p>
+
+  <p class="create-account-text">
+    Don&rsquo;t have an account? <a routerLink="/create-account">Create yours</a>
+  </p>
+</div>
