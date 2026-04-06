@@ -1,29 +1,44 @@
 <div class="email-step">
-  <div class="field-group">
-    <label for="email">Email</label>
-    <input
-      id="email"
-      type="text"
-      pInputText
-      placeholder="user@example.com"
-      [(ngModel)]="email"
-      name="email"
-    />
-  </div>
+  <form #form="ngForm" (ngSubmit)="onNext()">
+    <div class="field-group">
+      <label for="email">Email</label>
+      <input
+        id="email"
+        type="text"
+        pInputText
+        placeholder="user@example.com"
+        [(ngModel)]="email"
+        name="email"
+        required
+        email
+        #emailCtrl="ngModel"
+        [invalid]="emailCtrl.invalid && emailCtrl.touched"
+      />
+    </div>
+    @if (emailCtrl.errors?.['required'] && emailCtrl.touched) {
+      <small class="error-message">Email is required</small>
+    }
+    @if (emailCtrl.errors?.['email'] && emailCtrl.touched) {
+      <small class="error-message">Enter valid email</small>
+    }
+    @if(validationFailed) {
+      <p-message severity="error" icon="pi pi-times-circle" styleClass="mb-2">{{errorMessage}}</p-message>
+    }
+    <div class="next-row">
+      <p-button
+        variant="outlined"
+        label="Next"
+        icon="pi pi-angle-right"
+        iconPos="right"
+        styleClass="w-full"
+        type="submit"
+        [disabled]="form.invalid || loading"
+      />
+    </div>
 
-  <div class="next-row">
-    <p-button
-      variant="outlined"
-      label="Next"
-      icon="pi pi-angle-right"
-      iconPos="right"
-      styleClass="w-full"
-      (onClick)="onNext()"
-    />
-  </div>
-
-  <div class="login-row">
-    <span>Already have an account? </span>
-    <a routerLink="/login">Login</a>
-  </div>
+    <div class="login-row">
+      <span>Already have an account? </span>
+      <a routerLink="/login">Login</a>
+    </div>
+  </form>
 </div>

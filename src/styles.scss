@@ -38,3 +38,33 @@ a {
     text-decoration: none;
     font-weight: 600;
   }
+
+.error-message {
+color: #ef4444;
+}
+
+.p-inputtext.p-invalid {
+border-color: #ef4444 !important;
+}
+
+.p-message-error {
+    border-radius: 0 !important;
+    outline-color: #ef4444 !important;
+    .p-message-content {
+        position: relative;
+        justify-content: center;
+        .p-message-icon {
+            position: absolute;
+            top: -25%;
+            background: white;
+            border-radius: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .p-message-text {
+            font-weight: 400 !important;
+        }
+    }
+}
+
+

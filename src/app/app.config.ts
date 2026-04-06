@@ -6,6 +6,8 @@ import { provideClientHydration, withEventReplay } from '@angular/platform-brows
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
 import { definePreset } from '@primeuix/themes';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { provideHttpClient } from '@angular/common/http';
 
 const themePreset = definePreset(Aura, {
   semantic: {
@@ -50,6 +52,8 @@ export const appConfig: ApplicationConfig = {
       theme: {
           preset: themePreset
       }
-  })
+    }),
+    provideNoopAnimations(),
+    provideHttpClient()
   ]
 };
