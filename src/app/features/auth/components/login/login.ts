@@ -33,7 +33,7 @@ export class Login {
         
         if (res.status !== 200) {
           this.validationFailed = true;
-          this.errorMessage = res.message;
+          this.errorMessage = res?.errors?.[0]?.message;
           return;
         }
       
@@ -44,7 +44,7 @@ export class Login {
         
         this.loading = false;
         this.validationFailed = true;
-        this.errorMessage = err.error.message;
+        this.errorMessage = err.error?.errors?.[0]?.message;
       },
     })
   }

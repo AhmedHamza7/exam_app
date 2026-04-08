@@ -16,8 +16,8 @@ export class AuthService implements AuthMethods{
     .pipe(map(res => this.authAdaptor.adapt(res)), catchError(err => of(err)))
   }
 
-  register(email: string, password: string): Observable<any> {
-    return this.http.post(AuthEndPoints.REGISTER, { email, password });
+  register(data:any): Observable<any> {
+    return this.http.post(AuthEndPoints.REGISTER, data);
   }
 
   forgotPassword(email: string): Observable<any> {

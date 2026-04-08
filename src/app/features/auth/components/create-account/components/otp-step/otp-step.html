@@ -10,14 +10,40 @@
   </p>
 
   <div class="otp-input-wrap">
-    <p-inputotp [(ngModel)]="value" [length]="6" />
+    <p-inputotp [(ngModel)]="value" [length]="6" name="otp" />
   </div>
 
-  <p class="otp-resend">
-    You can request another code in: {{ countdownSeconds }}s
-  </p>
+  @if (validationFailed) {
+    <p-message severity="error" icon="pi pi-times-circle" styleClass="mb-2">{{
+      errorMessage
+    }}</p-message>
+  }
+
+  @if (countdownSeconds() > 0) {
+    <p class="otp-resend">
+      You can request another code in: {{ countdownSeconds() }}s
+    </p>
+  } @else {
+    <div class="otp-resend-row">
+      <button
+        type="button"
+        class="otp-resend-link"
+        [disabled]="resendLoading"
+        (click)="onResend()"
+      >
+        Request another code
+      </button>
+    </div>
+  }
 
   <div class="otp-actions">
-    <p-button variant="outlined" label="Verify code" styleClass="w-full" (onClick)="onVerify()" />
+    <p-button
+      variant="outlined"
+      label="Verify code"
+      styleClass="w-full"
+      [disabled]="loading || (value?.length ?? 0) !== 6"
+      [loading]="loading"
+      (onClick)="onVerify()"
+    />
   </div>
 </div>

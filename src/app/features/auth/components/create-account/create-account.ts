@@ -1,4 +1,4 @@
-import { Component, model } from '@angular/core';
+import { Component } from '@angular/core';
 import { StepperModule } from 'primeng/stepper';
 import { EmailStep } from './components/email-step/email-step';
 import { OtpStep } from './components/otp-step/otp-step';
@@ -11,6 +11,4 @@ import { PasswordStep } from './components/password-step/password-step';
   templateUrl: './create-account.html',
   styleUrl: './create-account.scss',
 })
-export class CreateAccount {
-  readonly email = model('');
-}
+export class CreateAccount {}

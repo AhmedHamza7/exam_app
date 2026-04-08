@@ -5,4 +5,8 @@ import { Injectable, signal } from '@angular/core';
 })
 export class AuthStore {
   email = signal<string>('');
+  firstName = signal<string>('');
+  lastName = signal<string>('');
+  username = signal<string>('');
+  phone = signal<string>('');
 }

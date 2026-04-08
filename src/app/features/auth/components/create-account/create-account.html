@@ -11,16 +11,12 @@
                 <h2 class="forms-title">Create Account</h2>
                 <p-step-panel [value]="1">
                     <ng-template #content let-activateCallback="activateCallback">
-                        <app-email-step
-                            [(email)]="email"
-                            [activateCallback]="activateCallback"
-                        ></app-email-step>
+                        <app-email-step [activateCallback]="activateCallback"></app-email-step>
                     </ng-template>
                 </p-step-panel>
                 <p-step-panel [value]="2">
                     <ng-template #content let-activateCallback="activateCallback">
                         <app-otp-step
-                                [email]="email()"
                                 [activateCallback]="activateCallback"
                             ></app-otp-step>
                     </ng-template>
