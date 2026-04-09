@@ -18,14 +18,19 @@
 
   <div class="next-row">
     <p-button
-      variant="outlined"
       label="Next"
       icon="pi pi-angle-right"
       iconPos="right"
       styleClass="w-full"
+      [loading]="loading()"
+      [disabled]="loading()"
       (onClick)="onNext()"
     />
   </div>
+
+  @if (validationFailed()) {
+    <p-message severity="error" icon="pi pi-times-circle" styleClass="mb-2">{{ errorMessage() }}</p-message>
+  }
 
   <p class="create-account-text">
     Don&rsquo;t have an account? <a routerLink="/create-account">Create yours</a>

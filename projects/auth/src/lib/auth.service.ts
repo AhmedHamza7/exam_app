@@ -24,8 +24,8 @@ export class AuthService implements AuthMethods{
     return this.http.post(AuthEndPoints.FORGET_PASSWORD, { email });
   }
 
-  resetPassword(token: string, newPassword: string, confirmNewPassword: string): Observable<any> {
-    return this.http.post(AuthEndPoints.RESET_PASSWORD, { token, newPassword, confirmNewPassword });
+  resetPassword(token: string, newPassword: string, confirmPassword: string): Observable<any> {
+    return this.http.post(AuthEndPoints.RESET_PASSWORD, { token, newPassword, confirmPassword });
   }
 
   sendEmailVerification(email: string): Observable<any> {

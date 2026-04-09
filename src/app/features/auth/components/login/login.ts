@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
@@ -14,10 +14,10 @@ import { MessageModule } from 'primeng/message';
   styleUrl: './login.scss',
 })
 export class Login {
-  validationFailed = false;
-  loading = false;
-  errorMessage = '';
-  successMessage = '';
+  validationFailed = signal(false);
+  loading = signal(false);
+  errorMessage = signal('');
+  successMessage = signal('');
   private readonly authService = inject(AuthService);
 
   loginForm: FormGroup = new FormGroup({
@@ -26,25 +26,25 @@ export class Login {
   })
 
   onLogin(): void {
-    this.loading = true;
+    this.loading.set(true);
     this.authService.login(this.loginForm.value.username, this.loginForm.value.password).subscribe({
       next: (res) => {
         console.log(res);
         
         if (res.status !== 200) {
-          this.validationFailed = true;
-          this.errorMessage = res?.errors?.[0]?.message;
+          this.validationFailed.set(true);
+          this.errorMessage.set(res?.errors?.[0]?.message);
           return;
         }
       
-        this.successMessage = res.message;
+        this.successMessage.set(res.message);
       },
       error:(err)=> {
         console.log(err);
         
-        this.loading = false;
-        this.validationFailed = true;
-        this.errorMessage = err.error?.errors?.[0]?.message;
+        this.loading.set(false);
+        this.validationFailed.set(true);
+        this.errorMessage.set(err.error?.errors?.[0]?.message);
       },
     })
   }

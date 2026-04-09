@@ -6,7 +6,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { AuthStore } from '../../../../store/auth.store';
 import { AuthService } from '../../../../../../../../dist/auth';
 import { MessageModule } from 'primeng/message';
-
+import { signal } from '@angular/core';
 @Component({
   selector: 'app-email-step',
   imports: [RouterModule, InputTextModule,MessageModule, ButtonModule, FormsModule],
@@ -18,29 +18,29 @@ export class EmailStep {
   readonly email = model(this.authStore.email());
   private readonly authService = inject(AuthService);
 
-  validationFailed = false;
-  errorMessage = ''
-  loading = false;
+  validationFailed = signal(false);
+  errorMessage = signal('');
+  loading = signal(false);
   @Input() activateCallback?: (value: number) => void;
 
   onNext(): void {
-    this.loading = true;
+    this.loading.set(true);
     this.authService.sendEmailVerification(this.email()).subscribe({
       next: (res) => {
         if (res.code !== 200) {
-          this.validationFailed = true;
-          this.errorMessage = res.errors[0].message;
-          this.loading = false;
+          this.validationFailed.set(true);
+          this.errorMessage.set(res.errors[0].message);
+          this.loading.set(false);
           return;
         }
         this.authStore.email.set(this.email());
         this.activateCallback?.(2);
-        this.loading = false;
+        this.loading.set(false);
       },
       error: (err) => {
-        this.validationFailed = true;
-        this.errorMessage = err.error.errors[0].message;
-        this.loading = false;
+        this.validationFailed.set(true);
+        this.errorMessage.set(err.error.errors[0].message);
+        this.loading.set(false);
       },
     });
   }

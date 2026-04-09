@@ -7,18 +7,21 @@ import { ResetPassword } from './components/reset-password/reset-password';
 
 @Component({
   selector: 'app-forget-password',
-  imports: [CommonModule, UserEmail, ResetLink],
+  imports: [CommonModule, UserEmail, ResetLink, ResetPassword],
   templateUrl: './forget-password.html',
   styleUrl: './forget-password.scss',
 })
 export class ForgetPassword implements OnInit {
-  step: 'email' | 'resetLink'  = 'email';
+  step: 'email' | 'resetLink' | 'resetPassword' = 'email';
   email = '';
 
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-
+    const token = this.route.snapshot.queryParamMap.get('token');
+    if (token) {
+      this.step = 'resetPassword';
+    }
   }
 
   onEmailNext(enteredEmail: string): void {

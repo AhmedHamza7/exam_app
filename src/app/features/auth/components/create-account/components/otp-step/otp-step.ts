@@ -31,10 +31,10 @@ export class OtpStep implements OnInit, OnDestroy {
 
   readonly countdownSeconds = signal(60);
 
-  validationFailed = false;
-  errorMessage = '';
-  loading = false;
-  resendLoading = false;
+  validationFailed = signal(false);
+  errorMessage = signal('');
+  loading = signal(false);
+  resendLoading = signal(false);
 
   private intervalId?: ReturnType<typeof setInterval>;
 
@@ -58,32 +58,32 @@ export class OtpStep implements OnInit, OnDestroy {
     const code = (this.value ?? '').trim();
     const email = this.authStore.email();
     if (!email || code.length !== 6) {
-      this.validationFailed = true;
-      this.errorMessage = 'Please enter the 6-digit code.';
+      this.validationFailed.set(true);
+      this.errorMessage.set('Please enter the 6-digit code.');
       return;
     }
 
-    this.loading = true;
-    this.validationFailed = false;
-    this.errorMessage = '';
+    this.loading.set(true);
+    this.validationFailed.set(false);
+    this.errorMessage.set('');
 
     this.authService.confirmEmailVerification(email, code).subscribe({
       next: (res) => {
-        this.loading = false;
+        this.loading.set(false);
         if (res?.code !== 200) {
-          this.validationFailed = true;
+          this.validationFailed.set(true);
           this.errorMessage = res?.errors?.[0]?.message ?? 'Verification failed.';
           return;
         }
         this.activateCallback?.(3);
       },
       error: (err) => {
-        this.loading = false;
-        this.validationFailed = true;
-        this.errorMessage =
+        this.loading.set(false);
+        this.validationFailed.set(true);
+        this.errorMessage.set(
           err?.error?.errors?.[0]?.message ??
           err?.error?.message ??
-          'Something went wrong.';
+          'Something went wrong.');
       },
     });
   }
@@ -93,27 +93,27 @@ export class OtpStep implements OnInit, OnDestroy {
     const email = this.authStore.email();
     if (!email) return;
 
-    this.resendLoading = true;
-    this.validationFailed = false;
-    this.errorMessage = '';
+    this.resendLoading.set(true);
+    this.validationFailed.set(false);
+    this.errorMessage.set('');
 
     this.authService.sendEmailVerification(email).subscribe({
       next: (res) => {
-        this.resendLoading = false;
+        this.resendLoading.set(false);
         if (res?.code !== 200) {
-          this.validationFailed = true;
-          this.errorMessage = res?.errors?.[0]?.message ?? 'Could not resend code.';
+          this.validationFailed.set(true);
+          this.errorMessage.set(res?.errors?.[0]?.message ?? 'Could not resend code.');
           return;
         }
         this.countdownSeconds.set(60);
       },
       error: (err) => {
-        this.resendLoading = false;
-        this.validationFailed = true;
-        this.errorMessage =
+        this.resendLoading.set(false);
+        this.validationFailed.set(true);
+        this.errorMessage.set(
           err?.error?.errors?.[0]?.message ??
           err?.error?.message ??
-          'Something went wrong.';
+          'Something went wrong.');
       },
     });
   }

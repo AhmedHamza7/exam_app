@@ -21,8 +21,8 @@
     @if (emailCtrl.errors?.['email'] && emailCtrl.touched) {
       <small class="error-message">Enter valid email</small>
     }
-    @if(validationFailed) {
-      <p-message severity="error" icon="pi pi-times-circle" styleClass="mb-2">{{errorMessage}}</p-message>
+    @if(validationFailed()) {
+      <p-message severity="error" icon="pi pi-times-circle" styleClass="mb-2">{{errorMessage()}}</p-message>
     }
     <div class="next-row">
       <p-button
@@ -32,7 +32,7 @@
         iconPos="right"
         styleClass="w-full"
         type="submit"
-        [disabled]="form.invalid || loading"
+        [disabled]="form.invalid || loading()"
       />
     </div>
 

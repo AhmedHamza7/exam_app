@@ -1,45 +1,15 @@
-import { Component, inject } from '@angular/core';
-import {
-  AbstractControl,
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  ValidationErrors,
-  ValidatorFn,
-  Validators,
-} from '@angular/forms';
+import { Component, inject, signal } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { MessageModule } from 'primeng/message';
 import { PasswordModule } from 'primeng/password';
 import { AuthStore } from '../../../../store/auth.store';
 import { AuthService } from '../../../../../../../../dist/auth';
-
-function passwordRulesValidator(control: AbstractControl): ValidationErrors | null {
-  const v = (control.value as string) ?? '';
-  if (!v) return null;
-  if (v.length < 8) {
-    return { passwordRules: 'Password must be at least 8 characters' };
-  }
-  if (!/[A-Z]/.test(v)) {
-    return { passwordRules: 'Password must include at least one uppercase letter' };
-  }
-  if (!/[0-9]/.test(v)) {
-    return { passwordRules: 'Password must include at least one number' };
-  }
-  if (!/[^A-Za-z0-9]/.test(v)) {
-    return { passwordRules: 'Password must include at least one special character' };
-  }
-  return null;
-}
-
-const passwordsMatchValidator: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
-  const fg = group as FormGroup;
-  const p = fg.get('password')?.value as string;
-  const c = fg.get('confirmPassword')?.value as string;
-  if (!p || !c) return null;
-  return p === c ? null : { mismatch: true };
-};
+import {
+  passwordRulesValidator,
+  passwordsMatchValidator,
+} from '../../../../validators/password.validators';
 
 @Component({
   selector: 'app-password-step',
@@ -52,9 +22,9 @@ export class PasswordStep {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
 
-  validationFailed = false;
-  errorMessage = '';
-  loading = false;
+  validationFailed = signal(false);
+  errorMessage = signal('');
+  loading = signal(false);
 
   readonly passwordForm = new FormGroup(
     {
@@ -79,27 +49,27 @@ export class PasswordStep {
       phone: this.authStore.phone(),
     };
 
-    this.loading = true;
-    this.validationFailed = false;
-    this.errorMessage = '';
+    this.loading.set(true);
+    this.validationFailed.set(false);
+    this.errorMessage.set('');
 
     this.authService.register(payload).subscribe({
       next: (res) => {
-        this.loading = false;
+        this.loading.set(false);
         if (res?.status !== true) {
-          this.validationFailed = true;
-          this.errorMessage = res?.errors?.[0]?.message ?? 'Registration failed.';
+          this.validationFailed.set(true);
+          this.errorMessage.set(res?.errors?.[0]?.message ?? 'Registration failed.');
           return;
         }
         this.router.navigate(['/login']);
       },
       error: (err) => {
-        this.loading = false;
-        this.validationFailed = true;
-        this.errorMessage =
+        this.loading.set(false);
+        this.validationFailed.set(true);
+        this.errorMessage.set(
           err?.error?.errors?.[0]?.message ??
           err?.error?.message ??
-          'Something went wrong.';
+          'Something went wrong.');
       },
     });
   }
