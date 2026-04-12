@@ -29,23 +29,20 @@ export class Login {
     this.loading.set(true);
     this.authService.login(this.loginForm.value.username, this.loginForm.value.password).subscribe({
       next: (res) => {
-        console.log(res);
-        
-        if (res.status !== 200) {
-          this.validationFailed.set(true);
-          this.errorMessage.set(res?.errors?.[0]?.message);
-          return;
-        }
-      
-        this.successMessage.set(res.message);
+        this.loading.set(false);
+        this.successMessage.set("Login successful.");
       },
-      error:(err)=> {
-        console.log(err);
-        
+    
+      error: (err) => {
         this.loading.set(false);
         this.validationFailed.set(true);
-        this.errorMessage.set(err.error?.errors?.[0]?.message);
-      },
+    
+        this.errorMessage.set(
+          err?.error?.errors?.[0]?.message ??
+          err?.error?.message ??
+          'Something went wrong.'
+        );
+      }
     })
   }
 }

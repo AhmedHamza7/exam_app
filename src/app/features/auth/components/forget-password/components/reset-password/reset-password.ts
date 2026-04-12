@@ -68,11 +68,6 @@ export class ResetPassword implements OnInit {
       .subscribe({
         next: (res) => {
           this.loading.set(false);
-          if (res?.status !== true) {
-            this.validationFailed.set(true);
-            this.errorMessage.set(res?.errors?.[0]?.message ?? res?.message ?? 'Failed to reset password.');
-            return;
-          }
           this.router.navigate(['/login']);
         },
         error: (err) => {

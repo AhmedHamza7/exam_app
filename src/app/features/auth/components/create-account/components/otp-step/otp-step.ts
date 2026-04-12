@@ -70,11 +70,6 @@ export class OtpStep implements OnInit, OnDestroy {
     this.authService.confirmEmailVerification(email, code).subscribe({
       next: (res) => {
         this.loading.set(false);
-        if (res?.code !== 200) {
-          this.validationFailed.set(true);
-          this.errorMessage = res?.errors?.[0]?.message ?? 'Verification failed.';
-          return;
-        }
         this.activateCallback?.(3);
       },
       error: (err) => {
@@ -100,11 +95,6 @@ export class OtpStep implements OnInit, OnDestroy {
     this.authService.sendEmailVerification(email).subscribe({
       next: (res) => {
         this.resendLoading.set(false);
-        if (res?.code !== 200) {
-          this.validationFailed.set(true);
-          this.errorMessage.set(res?.errors?.[0]?.message ?? 'Could not resend code.');
-          return;
-        }
         this.countdownSeconds.set(60);
       },
       error: (err) => {

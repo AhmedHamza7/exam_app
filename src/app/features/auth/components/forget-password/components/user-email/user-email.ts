@@ -37,11 +37,6 @@ export class UserEmail {
     this.authService.forgotPassword(email).subscribe({
       next: (res) => {
         this.loading.set(false);
-        if (res?.status !== true) {
-          this.validationFailed.set(true);
-          this.errorMessage.set(res?.errors?.[0]?.message ?? res?.message ?? 'Failed to send reset link.');
-          return;
-        }
         this.next.emit(email);
       },
       error: (err) => {

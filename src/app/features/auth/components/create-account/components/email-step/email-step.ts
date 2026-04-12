@@ -27,19 +27,14 @@ export class EmailStep {
     this.loading.set(true);
     this.authService.sendEmailVerification(this.email()).subscribe({
       next: (res) => {
-        if (res.code !== 200) {
-          this.validationFailed.set(true);
-          this.errorMessage.set(res.errors[0].message);
-          this.loading.set(false);
-          return;
-        }
         this.authStore.email.set(this.email());
         this.activateCallback?.(2);
         this.loading.set(false);
       },
       error: (err) => {
         this.validationFailed.set(true);
-        this.errorMessage.set(err.error.errors[0].message);
+        this.errorMessage.set(err?.error?.errors?.[0]?.message ??
+          err?.error?.message ?? 'Failed to verify email.');
         this.loading.set(false);
       },
     });

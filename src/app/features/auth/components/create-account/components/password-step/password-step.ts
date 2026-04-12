@@ -56,11 +56,6 @@ export class PasswordStep {
     this.authService.register(payload).subscribe({
       next: (res) => {
         this.loading.set(false);
-        if (res?.status !== true) {
-          this.validationFailed.set(true);
-          this.errorMessage.set(res?.errors?.[0]?.message ?? 'Registration failed.');
-          return;
-        }
         this.router.navigate(['/login']);
       },
       error: (err) => {
