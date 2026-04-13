@@ -5,11 +5,11 @@
         <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onLogin()">
           <div class="field-group">
             <label for="username">Username</label>
-            <input id="username" type="text" pInputText formControlName="username" [invalid]="loginForm.get('username')?.errors" />
-            @if(loginForm.get('username')?.errors?.['required']) {
+            <input id="username" type="text" pInputText formControlName="username" [invalid]="loginForm.controls['username'].touched && loginForm.controls['username'].errors" />
+            @if(loginForm.controls['username'].touched && loginForm.controls['username'].errors?.['required']) {
               <small class="error-message">Username is required</small>
             }
-            @if(loginForm.get('username')?.errors?.['minlength']) {
+            @if(loginForm.controls['username'].touched && loginForm.controls['username'].errors?.['minlength']) {
               <small class="error-message">Username must be at least 3 characters</small>
             }
           </div>
@@ -23,12 +23,12 @@
               styleClass="w-full"
               inputStyleClass="w-full"
               formControlName="password"
-              [invalid]="loginForm.get('password')?.errors"
+              [invalid]="loginForm.controls['password'].touched && loginForm.controls['password'].errors"
             />
-            @if(loginForm.get('password')?.errors?.['required']) {
+            @if(loginForm.controls['password'].touched && loginForm.controls['password'].errors?.['required']) {
               <small class="error-message">Password is required</small>
             }
-            @if(loginForm.get('password')?.errors?.['minlength']) {
+            @if(loginForm.controls['password'].touched && loginForm.controls['password'].errors?.['minlength']) {
               <small class="error-message">Password must be at least 6 characters</small>
             }
           </div>
