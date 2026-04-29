@@ -7,7 +7,8 @@ import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
 import { definePreset } from '@primeuix/themes';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { apiInterceptor } from './core/interceptors/api-interceptor';
 
 const themePreset = definePreset(Aura, {
   semantic: {
@@ -54,6 +55,6 @@ export const appConfig: ApplicationConfig = {
       }
     }),
     provideNoopAnimations(),
-    provideHttpClient()
+    provideHttpClient(withInterceptors([apiInterceptor]))
   ]
 };

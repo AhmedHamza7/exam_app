@@ -1,0 +1,144 @@
+.sidebar {
+  background: var(--light-blue);
+  min-height: 100vh;
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.sidebar__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.sidebar__logo {
+  width: 9rem;
+  // height: 2.5rem;
+  // object-fit: contain;
+}
+
+.sidebar__title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+.sidebar__tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sidebar__tabs a {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--medium-color-text);
+  // font-weight: 600;
+}
+
+.sidebar__tabs a.active {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+  background: var(--medium-blue);
+}
+
+.sidebar__user-section {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  // background: #ffffff;
+  position: relative;
+}
+
+.sidebar__avatar {
+  width: 2.2rem;
+  height: 2.2rem;
+  // border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--primary-color);
+}
+
+.sidebar__user-info {
+  min-width: 0;
+  flex: 1;
+}
+
+.sidebar__name,
+.sidebar__email {
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar__name {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.sidebar__email {
+  color: var(--medium-color-text);
+  font-size: 0.85rem;
+}
+
+.sidebar__menu-button {
+  border: 0;
+  background: transparent;
+  color: var(--medium-color-text);
+  cursor: pointer;
+}
+
+.sidebar__menu {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 3.5rem;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  min-width: 10rem;
+  padding: 0.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.sidebar__menu button {
+  border: 0;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem;
+  border-radius: 0.35rem;
+  cursor: pointer;
+  color: var(--primary-color-text);
+}
+
+.sidebar__menu button:hover {
+  background: var(--light-blue);
+}
+
+.sidebar__menu .logout {
+  color: #ef4444;
+}
+
+@media (max-width: 992px) {
+  .sidebar {
+    min-height: auto;
+  }
+}

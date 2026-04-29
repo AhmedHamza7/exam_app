@@ -6,6 +6,7 @@ export interface AuthUser {
   phone: string;
   firstName: string;
   lastName: string;
+  profilePhoto?:string;
   emailVerified: boolean;
   phoneVerified: boolean;
   role: string;
@@ -36,6 +37,9 @@ export interface LoginAdapted {
   code: number;
   token: string;
   email: string;
+  firstName:string;
+  profilePhoto?:string;
+  role: string;
 }
 
 /** --- register --- */

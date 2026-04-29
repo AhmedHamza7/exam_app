@@ -1,0 +1,51 @@
+<div class="sidebar">
+  <div>
+    <div class="sidebar__brand">
+      <img src="/images/logo.png" alt="Exam App logo" class="sidebar__logo" />
+      <div class="sidebar__title">
+        <img src="/images/auth/folder-code.svg" alt="folder icon" />
+        <span>Exam App</span>
+      </div>
+    </div>
+
+    <nav class="sidebar__tabs">
+      <a routerLink="/diplomas" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
+        <i class="pi pi-graduation-cap"></i>
+        <span>Diplomas</span>
+      </a>
+      <a href="javascript:void(0)">
+        <i class="pi pi-user"></i>
+        <span>Account Settings</span>
+      </a>
+    </nav>
+  </div>
+
+  <div class="sidebar__user-section">
+    <img [src]="profilePhoto" alt="profile photo" class="sidebar__avatar" />
+    <div class="sidebar__user-info">
+      <p class="sidebar__name">{{ firstName }}</p>
+      <p class="sidebar__email">{{ email }}</p>
+    </div>
+
+    <button type="button" class="sidebar__menu-button" (click)="toggleMenu($event)">
+      <i class="pi pi-ellipsis-v"></i>
+    </button>
+
+    <div class="sidebar__menu" *ngIf="showMenu()">
+      <button type="button">
+        <i class="pi pi-user"></i>
+        <span>Account</span>
+      </button>
+
+      <button type="button" *ngIf="isAdmin">
+        <i class="pi pi-th-large"></i>
+        <span>Dashboard</span>
+      </button>
+
+      <button type="button" class="logout" (click)="onLogout()">
+        <i class="pi pi-sign-out"></i>
+        <span>Logout</span>
+      </button>
+    </div>
+  </div>
+</div>

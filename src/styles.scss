@@ -7,6 +7,8 @@
     --primary-color-text: #1F2937;
     --secondary-color-text: #374151;
     --medium-color-text: #6B7280;
+    --medium-blue:#DBEAFE;
+    --light-blue: #EFF6FF;
     color-scheme: light !important;
 
 }
@@ -67,4 +69,18 @@ border-color: #ef4444 !important;
     }
 }
 
+.p-breadcrumb {
+    background: white !important;
+}
 
+.p-breadcrumb-item-link {
+    cursor: pointer;
+}
+
+.p-breadcrumb-item-link .p-breadcrumb-item-label {
+    border-bottom:1px solid transparent
+}
+.p-breadcrumb-item-link:hover .p-breadcrumb-item-label {
+    color: unset !important;
+    border-bottom:1px solid var(--medium-color-text)
+}

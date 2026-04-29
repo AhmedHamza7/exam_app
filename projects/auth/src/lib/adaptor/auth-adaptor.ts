@@ -12,6 +12,9 @@ export class AuthAdaptor implements Adaptor {
       code: data.code,
       token: data.payload.token,
       email: data.payload.user.email,
+      firstName: data.payload.user.firstName,
+      profilePhoto: data.payload.user.profilePhoto,
+      role: data.payload.user.role
     };
   }
 }

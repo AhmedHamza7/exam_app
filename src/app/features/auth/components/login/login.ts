@@ -1,11 +1,14 @@
-import { Component, inject, signal } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, inject, signal, PLATFORM_ID } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../../../../dist/auth';
 import { MessageModule } from 'primeng/message';
+import { AuthStore } from '../../store/auth.store';
+import { isPlatformBrowser } from '@angular/common';
+import { SharedService } from '../../../../shared/services/shared.service';
 
 @Component({
   selector: 'app-login',
@@ -19,10 +22,14 @@ export class Login {
   errorMessage = signal('');
   successMessage = signal('');
   private readonly authService = inject(AuthService);
+  private readonly authStore = inject(AuthStore);
+  private readonly sharedService = inject(SharedService);
+  private router = inject(Router);
+  private platformId = inject(PLATFORM_ID)
 
   loginForm: FormGroup = new FormGroup({
-    username: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    username: new FormControl('hamza_exam', [Validators.required, Validators.minLength(3)]),
+    password: new FormControl('Hamza_1234', [Validators.required, Validators.minLength(6)]),
   })
 
   onLogin(): void {
@@ -30,7 +37,19 @@ export class Login {
     this.authService.login(this.loginForm.value.username, this.loginForm.value.password).subscribe({
       next: (res) => {
         this.loading.set(false);
-        this.successMessage.set("Login successful.");
+        const userData = {
+          firstName: res.firstName,
+          role: res.role,
+          email: res.email,
+          token: res.token,
+          profilePhoto: res.profilePhoto ?? '',
+        };
+        if (isPlatformBrowser(this.platformId)) {
+          localStorage.setItem('userData', JSON.stringify(userData));
+        }
+        this.authStore.setUserData(userData);
+        this.authStore.setUserData(userData);
+        this.router.navigate(['/diplomas']);
       },
     
       error: (err) => {

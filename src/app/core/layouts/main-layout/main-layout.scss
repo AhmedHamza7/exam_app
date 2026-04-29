@@ -1,0 +1,28 @@
+.main-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main-layout__sidebar {
+  width: 20%;
+} 
+
+.main-layout__content {
+  width: 80%;
+  padding: 1rem;
+}
+
+.main-layout__router-content {
+  margin-top: 1rem;
+}
+
+@media (max-width: 992px) {
+  .main-layout {
+    flex-direction: column;
+  }
+
+  .main-layout__sidebar,
+  .main-layout__content {
+    width: 100%;
+  }
+}
