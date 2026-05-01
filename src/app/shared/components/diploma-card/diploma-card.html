@@ -1,1 +1,9 @@
-<p>diploma-card works!</p>
+<article
+  class="diploma-card"
+  [style.background-image]="'url(' + diploma().image + ')'"
+>
+  <div class="diploma-info">
+    <h3 class="diploma-title">{{ diploma().title }}</h3>
+    <p class="diploma-description">{{ diploma().description }}</p>
+  </div>
+</article>

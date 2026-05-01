@@ -1,1 +1,10 @@
-<p>header works!</p>
+<header class="header">
+  @if (headerBacklink()) {
+    <button class="header-back" type="button" (click)="goBack()">
+      <i class="pi pi-arrow-left"></i>
+    </button>
+  }
+
+  <i class="header-icon {{ headerIcon() }}"></i>
+  <h1 class="header-title">{{ headerTitle() }}</h1>
+</header>

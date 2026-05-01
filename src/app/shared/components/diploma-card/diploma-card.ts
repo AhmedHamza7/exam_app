@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
+import { Diploma } from '../../../features/diplomas/models/diploma.models';
 
 @Component({
   selector: 'app-diploma-card',
@@ -7,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './diploma-card.scss',
 })
 export class DiplomaCard {
-
+  diploma = input.required<Diploma>();
 }

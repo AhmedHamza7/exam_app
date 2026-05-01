@@ -1,1 +1,22 @@
-<p>diplomas works!</p>
+@if (isEmpty()) {
+  <app-empty-state></app-empty-state>
+} @else {
+  <section 
+    class="diplomas-grid"
+    #scrollContainer
+    infiniteScroll
+    [infiniteScrollDistance]="3"
+    [infiniteScrollThrottle]="200"
+    [infiniteScrollUpDistance]="1"
+    [infiniteScrollContainer]="scrollContainer"
+    [scrollWindow]="false"
+    (scrolled)="onScroll()">
+    @for (diploma of diplomas(); track diploma.id) {
+      <app-diploma-card [diploma]="diploma" />
+    }
+  </section>
+}
+
+@if (loading()) {
+  <app-loading></app-loading>
+}

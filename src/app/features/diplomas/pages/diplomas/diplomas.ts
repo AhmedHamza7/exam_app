@@ -1,33 +1,76 @@
-import { Component } from '@angular/core';
-import { inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Component, computed, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SharedService } from '../../../../shared/services/shared.service';
+import { DiplomasService } from '../../services/diplomas.service';
+import { Diploma } from '../../models/diploma.models';
+import { DiplomaCard } from '../../../../shared/components/diploma-card/diploma-card';
+import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
+import { LoadingComponent } from '../../../../shared/components/loading/loading.component';
+import { EmptyStateComponent } from '../../../../shared/components/empty-state/empty-state.component';
+
+
 @Component({
   selector: 'app-diplomas',
-  imports: [],
+  imports: [
+    DiplomaCard,
+    InfiniteScrollDirective,
+    LoadingComponent,
+    EmptyStateComponent,
+  ],
   templateUrl: './diplomas.html',
   styleUrl: './diplomas.scss',
 })
 export class Diplomas {
-  platformId = inject(PLATFORM_ID);
-  private sharedService = inject(SharedService)
+  private readonly destroyRef = inject(DestroyRef);
+  private sharedService = inject(SharedService);
+  private diplomasService = inject(DiplomasService);
+
+  diplomas = signal<Diploma[]>([]);
+  loading = signal(false);
+  isEmpty = computed(() => !this.loading() && this.diplomas().length === 0);
+  diplomasParams = {
+    page: 1,
+    limit: 6,
+  };
+  totalPages = signal<number | null>(null)
   
-  constructor(){}
   ngOnInit() {
-    this.sharedService.breadcrumbData.set([{label:'Diplomas'}])
+    this.setHeaderData()
+    this.getDiplomas()
+  }
 
+  setHeaderData(): void {
+    this.sharedService.breadcrumbData.set([{ label: 'Diplomas' }]);
+    this.sharedService.headerTitle.set('Diplomas');
+    this.sharedService.headerIcon.set('pi pi-graduation-cap');
+    this.sharedService.headerBacklink.set(undefined);
+  }
 
-    let token: string | null = null;
-  
-    if (isPlatformBrowser(this.platformId)) {
-      const userDataString = localStorage.getItem('userData');
-      const userData = userDataString ? JSON.parse(userDataString) : null;
-      console.log(userData);
-      console.log(userData?.token);
-      
-      token = userData?.token;
+  getDiplomas(): void {
+    if (this.loading()) {
+      return;
     }
-  
-    console.log(token);
+
+    this.loading.set(true);
+    this.diplomasService
+      .getDiplomas(this.diplomasParams)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (response) => {
+          this.diplomas.update(prev => [...prev, ...response.payload.data]);
+          this.totalPages.set(response.payload.metadata.totalPages)
+          this.loading.set(false);
+        },
+        error: () => {
+          this.diplomas.set([]);
+          this.loading.set(false);
+        },
+      });
+  }
+
+  onScroll() {
+    if (this.diplomasParams.page == this.totalPages()) return
+    this.diplomasParams.page += 1;
+    this.getDiplomas();
   }
 }

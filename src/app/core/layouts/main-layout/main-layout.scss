@@ -1,6 +1,8 @@
 .main-layout {
   display: flex;
   min-height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
 }
 
 .main-layout__sidebar {
@@ -14,6 +16,7 @@
 
 .main-layout__router-content {
   margin-top: 1rem;
+  overflow: auto;
 }
 
 @media (max-width: 992px) {
