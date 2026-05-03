@@ -1,0 +1,28 @@
+<article class="exam-card">
+  <div class="exam-card__image-wrap">
+    <img class="exam-card__image" [src]="exam().image" [alt]="exam().title" />
+  </div>
+
+  <div class="exam-card__content">
+    <div class="exam-card__head">
+      <h3 class="exam-card__title">{{ exam().title }}</h3>
+      <div class="exam-card__meta">
+        <span class="exam-card__meta-item">
+          <i class="pi pi-question-circle"></i>
+          {{ exam().questionsCount }} Questions
+        </span>
+        <span class="exam-card__meta-item">
+          <i class="pi pi-clock"></i>
+          {{ exam().duration }} minutes
+        </span>
+      </div>
+    </div>
+
+    <p class="exam-card__description">{{ exam().description }}</p>
+
+    <button class="exam-card__action" type="button" aria-label="Start exam">
+      START
+      <i class="pi pi-arrow-right"></i>
+    </button>
+  </div>
+</article>

@@ -1,1 +1,11 @@
-<p>exams works!</p>
+@if (loading()) {
+  <app-loading></app-loading>
+} @else if (exams().length === 0) {
+  <app-empty-state></app-empty-state>
+} @else {
+  <section class="exams-list">
+    @for (exam of exams(); track exam.id) {
+      <app-exam-card [exam]="exam"></app-exam-card>
+    }
+  </section>
+}
