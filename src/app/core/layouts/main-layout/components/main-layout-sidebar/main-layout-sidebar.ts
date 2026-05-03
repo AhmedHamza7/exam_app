@@ -1,22 +1,28 @@
-import { NgIf } from '@angular/common';
-import { Component, HostListener, inject, signal } from '@angular/core';
+import { isPlatformBrowser, NgIf } from '@angular/common';
+import { Component, HostListener, inject, output, PLATFORM_ID, signal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthStore } from '../../../../../features/auth/store/auth.store';
 
 @Component({
   selector: 'app-main-layout-sidebar',
+  standalone: true,
   imports: [RouterLink, RouterLinkActive, NgIf],
   templateUrl: './main-layout-sidebar.html',
   styleUrl: './main-layout-sidebar.scss',
 })
 export class MainLayoutSidebar {
+  /** Emitted when the user follows primary navigation; parent closes mobile drawer. */
+  navigate = output<void>();
   private readonly authStore = inject(AuthStore);
   private readonly router = inject(Router);
-
+  platformId = inject(PLATFORM_ID);
   showMenu = signal(false);
 
   constructor() {
-    const userDataString = localStorage.getItem('userData');
+    let userDataString: string | null = null;
+    if (isPlatformBrowser(this.platformId)) {
+      userDataString = localStorage.getItem('userData');
+    }
     const userData = userDataString ? JSON.parse(userDataString) : null;
     if (userData?.token) {
       this.authStore.setUserData(userData);
@@ -44,14 +50,21 @@ export class MainLayoutSidebar {
     this.showMenu.update((value) => !value);
   }
 
+  onPrimaryNavClick(): void {
+    this.navigate.emit();
+  }
+
   @HostListener('document:click')
   closeMenu(): void {
     this.showMenu.set(false);
   }
 
   onLogout(): void {
-    localStorage.removeItem('userData');
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem('userData');
+    }
     this.authStore.clearUserData();
+    this.navigate.emit();
     this.router.navigate(['/auth/login']);
   }
 }

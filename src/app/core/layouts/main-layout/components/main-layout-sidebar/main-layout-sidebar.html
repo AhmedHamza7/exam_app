@@ -9,7 +9,12 @@
     </div>
 
     <nav class="sidebar__tabs">
-      <a routerLink="/diplomas" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
+      <a
+        routerLink="/diplomas"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: false }"
+        (click)="onPrimaryNavClick()"
+      >
         <i class="pi pi-graduation-cap"></i>
         <span>Diplomas</span>
       </a>

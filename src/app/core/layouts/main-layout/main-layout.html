@@ -1,9 +1,27 @@
-<div class="main-layout">
+<div
+  class="main-layout"
+  [class.main-layout--drawer-open]="drawerOpen()"
+>
+  <div
+    class="main-layout__backdrop"
+    role="presentation"
+    (click)="closeDrawer()"
+  ></div>
+
   <aside class="main-layout__sidebar">
-    <app-main-layout-sidebar />
+    <app-main-layout-sidebar (navigate)="closeDrawer()" />
   </aside>
 
   <main class="main-layout__content">
+    <button
+      type="button"
+      class="main-layout__menu-toggle"
+      (click)="openDrawer()"
+      aria-label="Open navigation menu"
+    >
+      <i class="pi pi-bars" aria-hidden="true"></i>
+    </button>
+
     <app-breadcrumb />
     <app-header />
     <section class="main-layout__router-content">

@@ -1,5 +1,5 @@
 import { Component, inject, signal, PLATFORM_ID } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
@@ -25,7 +25,20 @@ export class Login {
   private readonly authStore = inject(AuthStore);
   private readonly sharedService = inject(SharedService);
   private router = inject(Router);
-  private platformId = inject(PLATFORM_ID)
+  private route = inject(ActivatedRoute);
+  private platformId = inject(PLATFORM_ID);
+
+  private postLoginTarget(): string {
+    const fromQuery = this.route.snapshot.queryParamMap.get('returnUrl');
+    if (
+      typeof fromQuery === 'string' &&
+      fromQuery.startsWith('/') &&
+      !fromQuery.startsWith('//')
+    ) {
+      return fromQuery;
+    }
+    return '/diplomas';
+  }
 
   loginForm: FormGroup = new FormGroup({
     username: new FormControl('hamza_exam', [Validators.required, Validators.minLength(3)]),
@@ -48,8 +61,7 @@ export class Login {
           localStorage.setItem('userData', JSON.stringify(userData));
         }
         this.authStore.setUserData(userData);
-        this.authStore.setUserData(userData);
-        this.router.navigate(['/diplomas']);
+        void this.router.navigateByUrl(this.postLoginTarget());
       },
     
       error: (err) => {
