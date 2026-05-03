@@ -1,9 +1,10 @@
 import { Component, input } from '@angular/core';
 import { Exam } from '../../../features/diplomas/models/exam.models';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-exam-card',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './exam-card.html',
   styleUrl: './exam-card.scss',
 })

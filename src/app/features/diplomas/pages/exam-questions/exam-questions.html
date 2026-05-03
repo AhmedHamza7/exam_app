@@ -1,1 +1,143 @@
-<p>exam-questions works!</p>
+@if (loading()) {
+  <app-loading></app-loading>
+} @else if (!exam() || questions().length === 0) {
+  <app-empty-state></app-empty-state>
+} @else {
+  <div class="exam-page">
+    <header class="exam-header">
+      <div class="exam-header__progress">
+        <div class="exam-header__row">
+          <span class="exam-header__title">{{ exam()!.title }}</span>
+          <span class="exam-header__counter-label">
+            @if (activeStep() <= questions().length) {
+              Question {{ activeStep() }} of {{ exam()!.questionsCount }}
+            } @else {
+              Results
+            }
+          </span>
+        </div>
+        <p-progressbar [value]="progressPercent()" [showValue]="false"></p-progressbar>
+      </div>
+
+      @if (!submission() && activeStep() <= questions().length) {
+        <div class="exam-header__timer-wrap">
+          <div
+            class="timer-ring"
+            [style.--timer-pct]="timerRingPercent()"
+          >
+            <span class="timer-ring__inner">{{ formatMmSs(remainingSeconds()) }}</span>
+          </div>
+        </div>
+      }
+    </header>
+
+    <p-stepper [(value)]="activeStep" [linear]="false" class="exam-stepper">
+      <p-step-panels>
+        @for (q of questions(); track q.id; let i = $index) {
+          <p-step-panel [value]="i + 1">
+            <ng-template #content>
+              <section class="question-panel">
+                <h2 class="question-panel__question">{{ q.text }}</h2>
+
+                <div class="answers">
+                  @for (a of q.answers; track a.id) {
+                    <label class="answer-row" [attr.for]="'ans-' + q.id + '-' + a.id">
+                      <p-radioButton
+                        [inputId]="'ans-' + q.id + '-' + a.id"
+                        [name]="'question-' + q.id"
+                        [value]="a.id"
+                        [(ngModel)]="selectedAnswers[q.id]"
+                      />
+                      <span class="answer-row__text">{{ a.text }}</span>
+                    </label>
+                  }
+                </div>
+
+                <div class="nav-row">
+                  <p-button
+                    styleClass="nav-btn"
+                    label="Previous"
+                    severity="secondary"
+                    icon="pi pi-arrow-left"
+                    [disabled]="i === 0 || !!submission()"
+                    (onClick)="previousStep()"
+                  />
+                  <p-button
+                    styleClass="nav-btn"
+                    [label]="i === questions().length - 1 ? 'Finish' : 'Next'"
+                    icon="pi pi-arrow-right"
+                    iconPos="right"
+                    [loading]="submitting()"
+                    [disabled]="!!submission()"
+                    (onClick)="nextOrFinish()"
+                  />
+                </div>
+              </section>
+            </ng-template>
+          </p-step-panel>
+        }
+
+        @if (submission(); as result) {
+          <p-step-panel [value]="resultsStepValue()">
+            <ng-template #content>
+              <section class="results-panel">
+                <div class="results-panel__body">
+                    <div class="score-knob-wrapper">
+                        <div class="score-knob" [style.background]="scoreKnobBackground(result)">
+                            <div class="score-knob__hole"></div>
+                        </div>
+                        <div class="knob-info">
+                          Correct: {{ result.submission.correctAnswers }}
+                          <br>
+                          Incorrect: {{ result.submission.wrongAnswers }}
+                        </div>
+                
+                    </div>
+                  <div class="analytics">
+                    @for (item of result.analytics; track item.questionId) {
+                      <article class="analytics-item">
+                        <h3 class="analytics-item__title">{{ item.questionText }}</h3>
+
+                        @if (item.isCorrect) {
+                          <div class="fake-radio fake-radio--ok">
+                            <span class="fake-radio__dot"></span>
+                            <span>{{ answerLabel(item.selectedAnswer) }}</span>
+                          </div>
+                        } @else {
+                          <div class="fake-radio fake-radio--bad">
+                            <span class="fake-radio__dot"></span>
+                            <span>{{ answerLabel(item.selectedAnswer) }}</span>
+                          </div>
+                          <div class="fake-radio fake-radio--ok">
+                            <span class="fake-radio__dot"></span>
+                            <span>{{ answerLabel(item.correctAnswer) }}</span>
+                          </div>
+                        }
+                      </article>
+                    }
+                  </div>
+                </div>
+
+                <div class="nav-row">
+                  <p-button
+                    styleClass="nav-btn"
+                    label="Restart"
+                    icon="pi pi-refresh"
+                    severity="secondary"
+                    (onClick)="restart()"
+                  />
+                  <p-button
+                    styleClass="nav-btn"
+                    label="Explore"
+                    icon="pi pi-folder"
+                    (onClick)="explore()"
+                  />
+                </div>
+              </section>
+            </ng-template>
+          </p-step-panel>
+        }
+      </p-step-panels>
+    </p-stepper>
+  </div>
+}

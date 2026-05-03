@@ -11,5 +11,10 @@ export const diplomasRoutes: Routes = [
     path: 'exams/:id',
     canActivate: [authGuard], 
     loadComponent: ()=> import('../pages/exams/exams').then((m)=> m.Exams)
+  },
+  {
+    path:'exams/questions/:id',
+    canActivate: [authGuard], 
+    loadComponent: ()=> import('../pages/exam-questions/exam-questions').then((m)=> m.ExamQuestions)
   }
 ];

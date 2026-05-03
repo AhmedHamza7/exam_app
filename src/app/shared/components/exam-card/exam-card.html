@@ -20,9 +20,9 @@
 
     <p class="exam-card__description">{{ exam().description }}</p>
 
-    <button class="exam-card__action" type="button" aria-label="Start exam">
+    <a class="exam-card__action" [routerLink]="'/diplomas/exams/questions/' + exam().id">
       START
       <i class="pi pi-arrow-right"></i>
-    </button>
+    </a>
   </div>
 </article>

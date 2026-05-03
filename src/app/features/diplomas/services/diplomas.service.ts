@@ -3,7 +3,12 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DiplomasEndPoints } from '../../../core/services/app-endpoints';
 import { GetDiplomasResponse } from '../models/diploma.models';
-import { GetExamsByDiplomaIdResponse } from '../models/exam.models';
+import { GetExamDetailsResponse, GetExamsByDiplomaIdResponse } from '../models/exam.models';
+import { GetQuestionsByExamIdResponse } from '../models/question.models';
+import {
+  SubmitExamAnswersResponse,
+  SubmitExamRequestBody,
+} from '../models/submission.models';
 
 @Injectable({
   providedIn: 'root',
@@ -20,8 +25,22 @@ export class DiplomasService {
     examsParams: { page: number; limit: number },
   ): Observable<GetExamsByDiplomaIdResponse> {
     return this.http.get<GetExamsByDiplomaIdResponse>(
-      DiplomasEndPoints.GET_EXAMS_BY_DIPLOMA_ID,
+      DiplomasEndPoints.GET_EXAMS,
       { params: { diplomaId, ...examsParams } },
     );
+  }
+
+  getExamDetails(examId: string): Observable<GetExamDetailsResponse> {
+    return this.http.get<GetExamDetailsResponse>(DiplomasEndPoints.GET_EXAM_BY_ID(examId));
+  }
+
+  getQuestionsByExamId(examId: string): Observable<GetQuestionsByExamIdResponse> {
+    return this.http.get<GetQuestionsByExamIdResponse>(
+      DiplomasEndPoints.GET_QUESTIONS_BY_EXAM_ID(examId),
+    );
+  }
+
+  submitExamAnswers(body: SubmitExamRequestBody): Observable<SubmitExamAnswersResponse> {
+    return this.http.post<SubmitExamAnswersResponse>(DiplomasEndPoints.SUBMIT_EXAM_ANSWERS, body);
   }
 }
